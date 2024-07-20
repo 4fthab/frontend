@@ -1,0 +1,18 @@
+.form {
+  gap: 10px;
+  margin: auto;
+  width: 60vw;
+  display: flex;
+  flex-direction: column;
+}
+.form input {
+  font-size: large;
+  height: 3vh;
+  padding: 0 1rem;
+}
+
+.form button {
+  height: 3vh;
+  background-color: coral;
+  border: none;
+}

@@ -1,0 +1,23 @@
+nav {
+  width: 100vw;
+  height: 10vh;
+  background-color: black;
+  color: whitesmoke;
+  padding: 0.3em 2rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  display: flex;
+  align-items: center;
+  align-content: baseline;
+  justify-content: space-between;
+}
+.profile-pic {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: aliceblue;
+}
+
+.profile {
+  gap: 5px;
+  display: flex;
+}
