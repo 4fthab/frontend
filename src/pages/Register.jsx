@@ -21,7 +21,7 @@ function Register() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const response = await fetch("http://127.0.0.4:4000/user/signup", {
+      const response = await fetch("http://localhost:4001/user/signup", {
         method: "POST",
         body: JSON.stringify(formData),
         headers: { "Content-Type": "application/json" },

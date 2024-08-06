@@ -59,10 +59,11 @@
 
 /* Login page ---------------------------------------------------------------------------------*/
 
-.login {
-  width: 60vw;
-  margin: auto;
-  padding-top: 15rem;
+.login-section {
+  width: 50vw;
+  margin: 200px auto;
+  background-color: #ffffff;
+  padding: 1rem;
 }
 
 .title {
@@ -72,25 +73,18 @@
   font-size: 3rem;
 }
 
-.login .login-login {
-  width: 50%;
-  margin: auto;
-  background-color: #ccc;
-  padding: 1rem;
-  border-radius: 5px;
-}
-.login-login form {
+.login-section form {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.login-login form input {
+.login-section form input {
+  background-color: #ddd;
   height: 40px;
-  font-size: 1rem;
-  padding-left: 5px;
+  padding-left: 10px;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
 .btn {

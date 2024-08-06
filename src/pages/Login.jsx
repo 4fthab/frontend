@@ -1,57 +1,51 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 function Login() {
+  const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
-  let navigate = useNavigate();
+  const loginUser = async (e) => {
+    e.preventDefault();
+    const response = await fetch("http://localhost:4001/user/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
 
-  async function loginForm(e) {
-    try {
-      e.preventDefault();
-      const response = await fetch("http://127.0.0.4:4000/user/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" },
-      });
-
-      if (response.status == 200) {
-        alert("Login succesfully");
-        navigate("/");
-      } else {
-        alert("Login Failed!!!");
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
+    if (response.ok) setRedirect(true);
+    else alert("Wrong credentials");
+  };
+  if (redirect) {
+    return <Navigate to={"/"} />;
   }
 
   return (
     <>
-      <section className="login">
+      <section className="login-section">
+        <div className="title">
+          <h1>Login</h1>
+        </div>
         <div className="login-login">
-          <h2 className="title">Login</h2>
-          <form action="" onSubmit={loginForm}>
+          <form action="" onSubmit={loginUser}>
             <input
               type="email"
-              placeholder="email"
               value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              required
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="email"
             />
             <input
               type="password"
-              placeholder="password"
               value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              required
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="password"
             />
-            <button className="btn login-btn">Login</button>
+            <button className="btn" type="submit">
+              Login
+            </button>
           </form>
         </div>
       </section>
