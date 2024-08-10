@@ -1,35 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/userContext";
 
 function Navbar() {
-  const [user, setUser] = useState("");
-  // useEffect(() => {
-  //   const userSigned = async () => {
-  //     await fetch("http://127.0.0.4:4000/user/getuser", {
-  //       credentials: "include",
-  //     })
-  //       .then((resolve) =>
-  //         resolve.json().then((data) => {
-  //           console.log(data);
-  //           setUser(data);
-  //         })
-  //       )
-  //       .catch((err) => console.log(err.message));
-  //   };
-  //   console.log(user);
-  // }, []);
+  const { user, setUser } = useContext(UserContext);
+  const { isUser, setIsUser } = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:4001/user/getuser", {
-      credentials: "include",
-    })
-      .then((response) => response.json())
-      .then((userInfo) => setUser(userInfo));
-    console.log(user);
+    try {
+      fetch("http://localhost:4001/user/getuser", {
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((data) => setUser(data));
+
+      if (user) console.log("trueeee");
+      else console.log("falsee");
+    } catch (error) {}
   }, []);
 
-  const logout = () => {};
+  function logout() {
+    setUser(null);
+    fetch("http://localhost:4001/user/logout", {
+      credentials: "include",
+    });
+    setUser(null);
+    setIsUser(false);
+  }
 
   return (
     <>
@@ -39,24 +37,21 @@ function Navbar() {
         </h1>
         {user ? (
           <div className="flex">
-            <h1 className="text-xl mx-3 text-black hover:text-green-600">
-              <Link to="/login">Create post</Link>
-            </h1>
-            <h1 className="text-xl mx-3 text-black hover:text-red-600">
+            <h1 className="text-3xl mx-3 text-white hover:text-red-600">
               <Link to="/login" onClick={logout}>
                 Logout
               </Link>
             </h1>
-            <h1 className="text-xl mx-3 text-black hover:text-blue-600">
-              <Link to="#">{user.username}s</Link>
+            <h1 className="text-3xl mx-3 text-white hover:text-blue-600">
+              <Link to="#">{user.username}</Link>
             </h1>
           </div>
-        ) : (
+      .  ) : (
           <div className="auth flex">
-            <h1 className="text-xl mx-3 text-black hover:text-green-500">
+            <h1 className="text-3xl mx-3 text-white hover:text-green-500">
               <Link to="/login">Login</Link>
             </h1>
-            <h1 className="text-xl text-black hover:text-green-500">
+            <h1 className="text-3xl text-white hover:text-green-500">
               <Link to="/register">Register</Link>
             </h1>
           </div>
