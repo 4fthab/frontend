@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/userContext";
 
-function Sidebar() {
+function Sidebar({ getMessage }) {
   const [users, setUsers] = useState();
 
   const { receiver, setReceiver } = useContext(UserContext);
@@ -19,10 +19,6 @@ function Sidebar() {
       });
   }, []);
 
-  const openMessage = (ele) => {
-    setReceiver(ele);
-  };
-
   return (
     <div className="w-4/12 h-5/6 bg-slate-300 rounded-lg">
       <div className="search  pb-3 ">
@@ -38,7 +34,7 @@ function Sidebar() {
         <div className=" h-5/6 flex flex-col gap-2 overflow-auto">
           {users.map((ele) => (
             <div
-              onClick={() => openMessage(ele)}
+              onClick={() => getMessage(ele)}
               className=" py-2 mx-2 px-6 text-lg text-gray-50 bg-blue-600 hover:bg-blue-800 rounded-lg"
             >
               {ele.username}
