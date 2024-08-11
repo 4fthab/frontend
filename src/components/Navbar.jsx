@@ -5,7 +5,6 @@ import { UserContext } from "../context/userContext";
 
 function Navbar() {
   const { user, setUser } = useContext(UserContext);
-  const { isUser, setIsUser } = useState(false);
 
   useEffect(() => {
     try {
@@ -13,20 +12,21 @@ function Navbar() {
         credentials: "include",
       })
         .then((res) => res.json())
-        .then((data) => setUser(data));
-
-      if (user) console.log("trueeee");
-      else console.log("falsee");
+        .then((data) => {
+          if (data.error) {
+            setUser("");
+          } else {
+            setUser(data);
+          }
+        });
     } catch (error) {}
   }, []);
 
   function logout() {
-    setUser(null);
     fetch("http://localhost:4001/user/logout", {
       credentials: "include",
     });
     setUser(null);
-    setIsUser(false);
   }
 
   return (
@@ -46,7 +46,7 @@ function Navbar() {
               <Link to="#">{user.username}</Link>
             </h1>
           </div>
-      .  ) : (
+        ) : (
           <div className="auth flex">
             <h1 className="text-3xl mx-3 text-white hover:text-green-500">
               <Link to="/login">Login</Link>

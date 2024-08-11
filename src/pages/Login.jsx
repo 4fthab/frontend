@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 
 function Login() {
-  const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
@@ -48,6 +47,12 @@ function Login() {
             </button>
           </form>
         </div>
+        <h1 className="mt-10">
+          Not Registered ? .
+          <Link className=" hover:text-blue-700" to="/register">
+            Click here
+          </Link>
+        </h1>
       </section>
     </>
   );

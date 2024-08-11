@@ -38,7 +38,7 @@ function Register() {
   };
 
   return (
-    <div className="registration-form">
+    <div className="registration-form mt-20">
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -124,7 +124,12 @@ function Register() {
           onChange={handleChange}
           required
         />
-        <button type="submit">Register</button>
+        <button
+          className="bg-blue-900 text-slate-100 p-2 rounded-lg"
+          type="submit"
+        >
+          Register
+        </button>
       </form>
     </div>
   );
