@@ -5,6 +5,7 @@ import { IoMdSend } from "react-icons/io";
 function Conversation({ chat, getMessage }) {
   const { receiver } = useContext(UserContext);
   const [message, setMessage] = useState("");
+
   const sendMessage = async (e) => {
     e.preventDefault();
 
@@ -20,7 +21,6 @@ function Conversation({ chat, getMessage }) {
           credentials: "include",
         }
       );
-      console.log(respons);
       setMessage("");
       getMessage(receiver);
     }

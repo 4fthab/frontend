@@ -1,10 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../context/userContext";
+import React, { useEffect, useState } from "react";
 
 function Sidebar({ getMessage }) {
   const [users, setUsers] = useState();
-
-  const { receiver, setReceiver } = useContext(UserContext);
 
   useEffect(() => {
     fetch("http://localhost:4001/user/chat", {
