@@ -15,8 +15,9 @@ function Login() {
       credentials: "include",
     });
 
-    if (response.ok) setRedirect(true);
-    else alert("Wrong credentials");
+    if (response.ok) {
+      setTimeout(() => setRedirect(true), 1000);
+    } else alert("Wrong credentials");
   };
   if (redirect) {
     return <Navigate to={"/"} />;
@@ -48,8 +49,9 @@ function Login() {
           </form>
         </div>
         <h1 className="mt-10">
-          Not Registered ? .
-          <Link className=" hover:text-blue-700" to="/register">
+          Not Registered ?
+          <Link className=" hover:text-blue-700 font-semibold" to="/register">
+            {" "}
             Click here
           </Link>
         </h1>

@@ -17,7 +17,7 @@ function Sidebar({ getMessage }) {
   }, []);
 
   return (
-    <div className="w-4/12 h-5/6 bg-slate-300 rounded-lg">
+    <div className="w-4/12 h-6/6 bg-slate-300 rounded-lg">
       <div className="search  pb-3 ">
         <form className="flex content-center" action="">
           <input

@@ -2,16 +2,36 @@ import "./home.css";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Conversation from "../components/Conversation/Conversation";
+import LoginCard from "../components/LoginCard";
+
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/userContext";
 import { io } from "socket.io-client";
+import Login from "./Login";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [chat, setChat] = useState("");
   const { setReceiver } = useContext(UserContext);
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    try {
+      fetch("http://localhost:4001/user/getuser", {
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) {
+            setUser("");
+          } else {
+            setUser(data);
+          }
+        });
+    } catch (error) {}
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -43,17 +63,27 @@ function Home() {
     } else {
       const data = await res.json();
       setChat(data.messages);
+      console.log(chat);
+
       socket.emit("test", ele._id);
     }
   };
 
   return (
     <>
-      <Navbar />
-      <div className="message flex w-11/12 bg-slate-200 h-screen gap-1 p-3 m-auto">
-        <Sidebar getMessage={getMessage} />
-        <Conversation chat={chat} socket={socket} getMessage={getMessage} />
-      </div>
+      {user ? (
+        <div className="h-lvh flex flex-col ">
+          <Navbar className=" h-2/12" />
+          <div className="message flex w-11/12 bg-slate-200 h-5/6 gap-1 p-3 m-auto">
+            <Sidebar getMessage={getMessage} />
+            <Conversation chat={chat} socket={socket} getMessage={getMessage} />
+          </div>
+        </div>
+      ) : (
+        <div>
+          <Link to={"/login"}>Login</Link>
+        </div>
+      )}
     </>
   );
 }
